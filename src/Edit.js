@@ -1,5 +1,5 @@
 import cards from './config/cards';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 export default function Edit() {
     const { victory_cards, flow_cards, effect_cards } = cards;

@@ -1,5 +1,5 @@
-// import React from 'react';
-import React, { useState, useEffect } from 'react';
+// { useState, useEffect }
+import React from 'react';
 import Card from './components/Card';
 import RevealedCard from './components/RevealedCard';
 import cards from './config/cards.json';
@@ -29,9 +29,9 @@ class App extends React.Component
     {
         const { victory_cards, flow_cards, effect_cards } = cards;
 
-        victory_cards.map(function(a){a.type = 'victory'});
-        flow_cards.map(function(a){a.type = 'flow'});
-        effect_cards.map(function(a){a.type = 'effect'});
+        victory_cards.map(function(a){return a.type = 'victory'});
+        flow_cards.map(function(a){return a.type = 'flow'});
+        effect_cards.map(function(a){return a.type = 'effect'});
 
         let victory_card = _getRandomCard(victory_cards);
         let flow_card = _getRandomCard(flow_cards);
@@ -78,7 +78,7 @@ class App extends React.Component
 
             for(let i in cards)
             {
-                if(cards[i].name == card.name)
+                if(cards[i].name === card.name)
                 {
                     let c = cards.splice(i, 1)[0];
                     state.deck.push(c);
@@ -150,10 +150,10 @@ function _getRandomCard(stack)
     return stack.splice(rand, 1)[0];
 }
 
-function _getTopCard(stack)
-{
-    return stack.splice(0, 1)[0];
-}
+// function _getTopCard(stack)
+// {
+//     return stack.splice(0, 1)[0];
+// }
 
 function _limitLane(stack, deck)
 {

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// { useState, useEffect }
+import React from 'react';
 import formatRules from '../config/format-rules.json';
 
 function RevealedCard(props)
