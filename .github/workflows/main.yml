@@ -27,4 +27,4 @@ jobs:
       with:
         server: 50.87.193.47:21
         username: tofikthr
-        password: -ipw9e6Jn.D^6e/
+        password: ${{ secrets.FTP_PASSWORD }}
