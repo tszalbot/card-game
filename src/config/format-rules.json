@@ -1,0 +1,9 @@
+[
+    ["Win:", "victory"],
+    ["Rule draw:", "global"],
+    ["Rule discard:", "global"],
+    ["Round start:", "global"],
+    ["Round end:", "global"],
+    ["Turn start:", "player"],
+    ["Turn end:", "player"]
+]

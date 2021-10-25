@@ -1,0 +1,150 @@
+{
+    "victory_cards": [
+        {
+            "name": "Four of a kind",
+            "desc": "Win: You have four cards of the same kind."
+        },
+        {
+            "name": "Court House",
+            "desc": "Win: You have 5 court cards."
+        },
+        {
+            "name": "Monopoly",
+            "desc": "Win: You have 15 cards."
+        },
+        {
+            "name": "Straight",
+            "desc": "Win: You have 5 cards of sequential rank."
+        },
+        {
+            "name": "Double Trouble",
+            "desc": "Win: You have four pairs."
+        },
+        {
+            "name": "Flush",
+            "desc": "Win: You have 5 cards with the same sign."
+        },
+        {
+            "name": "I can't even",
+            "desc": "Win: You have 6 even numbers."
+        },
+        {
+            "name": "Feeling red",
+            "desc": "Win: Your hand consists of hearts and diamonds only and is at least 5 in size.\nWin: You have at least 10 cards in hand and at least 10 of them are hearts and diamonds."
+        },
+        {
+            "name": "Diamond rush",
+            "desc": "Win: Your hand contains number cards of diamond totaling to exactly 10."
+        },
+        {
+            "name": "Joker",
+            "desc": "Win: You have a joker.\nRule draw: Shuffle a joker card in the deck. \nRule discard: Remove the joker card from the game and shuffle the deck."
+        }
+    ],
+    "flow_cards": [
+        {
+            "name": "Rock Paper Scissors",
+            "desc": "Turn start: Choose an opponent to play one round of Rock Paper Scissors. If you win steal a card from that opponent",
+            "rank": 1
+        },
+        {
+            "name": "Poker",
+            "desc": "Turn start: You may play 2 cards face down in front of you.\nRound end: Reveal 5 cards from the deck and the cards played by players to compare them with basic poker rules. Winner takes the 5 revealed cards, everyone else discards played cards.",
+            "rank": 2
+        },
+        {
+            "name": "Fishing",
+            "desc": "Turn start: Play a card face down in front of you.\nRound end: Reveal top 9 cards from the deck. Each player draws cards equal to the amount of matching ranks.",
+            "rank": 1
+        },
+        {
+            "name": "Mexican standoff",
+            "desc": "Turn start: Choose an opponent and play one of your cards. If the opponent plays a card with the same sign and a higher rank they draw 1, otherwise you draw 2. Discard your played cards.",
+            "rank": 1
+        },
+        {
+            "name": "High stake",
+            "desc": "Rule draw: Reveal the top card of the deck to create a new pile. Turn start: Play a card with higher rank or the same sign as the top card of the pile or pass.\nRound end: Players that didn't pass this round draw a card. If everyone passed, the player who played the last card on that pile draws a card of his choice from the pile then discards the pile and creates a new one."
+        },
+        {
+            "name": "Bang!",
+            "desc": "Turn start: Name an opponent and a card sign (spades, clubs, hearts, diamonds). Beginning with the opponent, you each take turns to play a card belonging to that card sign until one of you runs out of cards to play or chooses to pass, resulting in losing the exchange. The winner then gains cards equal to the amount of cards played in this exchange plus 1. Discard played cards.",
+            "rank": 1
+        },
+        {
+            "name": "Not like the other cards",
+            "desc": "Turn start: Play a card face down in front of you.\nRound end: Reveal played cards. Every player that chose a card with a sign that is not repeated draws a card. Additionally, player with the highest card draws a card if no other player has the same rank.",
+            "rank": 1
+        },
+        {
+            "name": "Don't Stand Out",
+            "desc": "Turn start: Play a card face down in front of you.\nRound end: Reveal played cards. If your card is the highest or the lowest from among other players' cards, discard it. Otherwise draw 1.",
+            "rank": 1
+        },
+        {
+            "name": "Auction",
+            "desc": "Round start: Reveal one card from the top of the deck as an auctioned card.\nTurn start: You may play a card face down.\nRound end: Reveal played cards. Player with the highest played card wins the auctioned card and draws a card for each played card. Break ties by playing more cards among the players with highest played cards.",
+            "rank": 1
+        },
+        {
+            "name": "UNO",
+            "desc": "Rule draw: Put the top card from the deck face up to create a pile.\nTurn start: You may play a card onto the pile if the sign or rank matches with the top card. If you do, draw 1 card if the sign matches, or 2 if the rank matches.\nRule discard: Discard the pile.",
+            "rank": 1
+        },
+        {
+            "name": "Trade",
+            "desc": "Round start: Draw 1, then, if you have at least 3 cards in hand, give  one card to the opponent on your left.",
+            "rank": 1
+        },
+        {
+            "name": "Cleanse",
+            "desc": "Turn start: Draw 3 then discard 2."
+        }
+    ],
+    "effect_cards": [
+        {
+            "name": "Draw 1",
+            "desc": "Turn start: Draw 1."
+        },
+        {
+            "name": "Garbage man",
+            "desc": "Turn start: You may discard 2 cards to draw a card from the discard pile."
+        },
+        {
+            "name": "Fair exchange",
+            "desc": "On your turn you may discard 2 cards of the same rank to draw 2."
+        },
+        {
+            "name": "Discard bonus",
+            "desc": "The first time you discard a second card each turn, you may draw 1."
+        },
+        {
+            "name": "Speed it up",
+            "desc": "Rule draw: Discard this rule to draw 2 more rules."
+        },
+        {
+            "name": "Investment",
+            "desc": "On your turn you may discard 3 cards to draw a card and a rule."
+        },
+        {
+            "name": "Update",
+            "desc": "Rule draw: Discard this rule and a card from your hand. Draw a card."
+        },
+        {
+            "name": "Difficult decision",
+            "desc": "Turn start: Discard 1 to draw 1"
+        },
+        {
+            "name": "Reset",
+            "desc": "Rule draw: Discard this rule. Each player discards their hand to draw that many cards."
+        },
+        {
+            "name": "Split the Deck",
+            "desc": "Rule draw: Take half of the deck and put it upside down.\nEach time you draw a card, you can choose to instead draw a top card from the upside-down half of deck. When cards run out in any of the halves, reshuffle the deck with discard pile and Split the Deck again.\nRule discard: Shuffle both halves of the deck together."
+        },
+        {
+            "name": "2 for 2",
+            "desc": "On your turn you may discard 2 once to draw 2."
+        }
+    ]
+}
