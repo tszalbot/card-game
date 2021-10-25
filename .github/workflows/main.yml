@@ -38,4 +38,5 @@ jobs:
         server: 50.87.193.47
         username: tofikthr
         password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: build/
         server-dir: home1/tofikthr/public_html/
