@@ -15,10 +15,10 @@ ReactDOM.render(
     <React.StrictMode>
         <Router>
             <Switch>
-                <Route path="/edit">
+                <Route path="/cards/edit">
                     <Edit/>
                 </Route>
-                <Route path="/">
+                <Route path="/cards">
                     <App />
                 </Route>
             </Switch>
