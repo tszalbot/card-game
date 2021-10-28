@@ -1,5 +1,6 @@
 // { useState, useEffect }
 import React from 'react';
+import { Link } from "react-router-dom";
 import Card from './components/Card';
 import RevealedCard from './components/RevealedCard';
 import cards from './config/cards.json';
@@ -20,6 +21,7 @@ class App extends React.Component
             revealedCard: null
         }
 
+        this.dealCards = this.dealCards.bind(this);
         this.addCard = this.addCard.bind(this);
         this.removeCard = this.removeCard.bind(this);
         this.revealCard = this.revealCard.bind(this);
@@ -27,7 +29,12 @@ class App extends React.Component
 
     componentDidMount()
     {
-        const { victory_cards, flow_cards, effect_cards } = cards;
+        this.dealCards();
+    }
+
+    dealCards()
+    {
+        const { victory_cards, flow_cards, effect_cards } = JSON.parse(JSON.stringify(cards));
 
         victory_cards.map(function(a){return a.type = 'victory'});
         flow_cards.map(function(a){return a.type = 'flow'});
@@ -104,41 +111,59 @@ class App extends React.Component
     render() {
         return (
             <div className="App">
-                <div className="left-row">
-                    <Card action={this.addCard} flipped={true} card={{
-                        name: this.state.deck.length
-                    }}/>
+                <div className="col">
+                    <div className="card-lane">
+                        <div className="col">
+                            <Link to="/cards/edit">
+                                <button className="btn">
+                                    Edit
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="card-lane">
+                        <div className="col">
+                            <Card action={this.addCard} flipped={true} card={{
+                                name: 'Draw a rule (' + this.state.deck.length + ')'
+                            }}/>
+                        </div>
+                    </div>
+
+                    <div className="card-lane">
+                        <div className="col">
+                            <button className="btn" onClick={() => this.dealCards()}>
+                                Reset
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="right-row">
+                <div className="col col-9">
                     <div className="card-lane">
                         {this.state.victory.map((card, index) => (
-                            <Card key={index} card={card} removeCard={this.removeCard} action={this.revealCard}/>
+                            <div className="col col-4">
+                                <Card key={index} card={card} removeCard={this.removeCard} action={this.revealCard}/>
+                            </div>
                         ))}
                     </div>
                     <div className="card-lane">
                         {this.state.flow.map((card, index) => (
-                            <Card key={index} card={card} rank={card.rank} removeCard={this.removeCard} action={this.revealCard}/>
+                            <div className="col col-4">
+                                <Card key={index} card={card} rank={card.rank} removeCard={this.removeCard} action={this.revealCard}/>
+                            </div>
                         ))}
                     </div>
                     <div className="card-lane">
                         {this.state.effect.map((card, index) => (
-                            <Card key={index} card={card} removeCard={this.removeCard} action={this.revealCard}/>
+                            <div className="col col-4">
+                                <Card key={index} card={card} removeCard={this.removeCard} action={this.revealCard}/>
+                            </div>
                         ))}
                     </div>
                 </div>
 
                 {this.state.revealedCard ? <RevealedCard card={this.state.revealedCard} onClose={this.revealCard} removeCard={this.removeCard}/> : ''}
-
-                <div className="panel">
-                    {/* <div className="btn">
-                        Restart {this.state.deck.length}
-                    </div> */}
-
-                    {/* <div className="btn">
-                        Undo
-                    </div> */}
-                </div>
             </div>
         );
     }
@@ -149,11 +174,6 @@ function _getRandomCard(stack)
     var rand = Math.floor(Math.random() * stack.length);
     return stack.splice(rand, 1)[0];
 }
-
-// function _getTopCard(stack)
-// {
-//     return stack.splice(0, 1)[0];
-// }
 
 function _limitLane(stack, deck)
 {

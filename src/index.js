@@ -9,12 +9,16 @@ import {
 import './index.scss';
 import App from './App';
 import Edit from './Edit';
+import ShowJSON from './ShowJSON';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <React.StrictMode>
         <Router>
             <Switch>
+                <Route path="/cards/showjson">
+                    <ShowJSON/>
+                </Route>
                 <Route path="/cards/edit">
                     <Edit/>
                 </Route>

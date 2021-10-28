@@ -1,5 +1,4 @@
 import React from 'react';
-
 class Card extends React.Component {
     constructor(props)
     {
@@ -20,10 +19,12 @@ class Card extends React.Component {
         const { name, type } = this.props.card;
 
         return (
-            <div className={'card ' + (type || '') + ' ' + (this.props.flipped ? 'flipped' : '')} onClick={this.onClick}>
-                {name}
-                <div className="card-rank">
-                    {this.props.rank || ''}
+            <div className="card" onClick={this.onClick}>
+                <div className={'card-inner ' + (type || '') + ' ' + (this.props.flipped ? 'flipped' : '')}>
+                    {name}
+                    <div className="card-rank">
+                        {this.props.rank || ''}
+                    </div>
                 </div>
             </div>
         )
