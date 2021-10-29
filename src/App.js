@@ -1,5 +1,4 @@
-// { useState, useEffect }
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Card from './components/Card';
 import RevealedCard from './components/RevealedCard';
@@ -8,198 +7,203 @@ import cards from './config/cards.json';
 var settings = {
     max_cards: 3
 }
-class App extends React.Component
+function App()
 {
-    constructor()
-    {
-        super();
-        this.state = {
-            deck: [],
-            victory: [],
-            flow: [],
-            effect: [],
-            revealedCard: null
-        }
+    const [deck, updateDeck] = useState([]);
+    const [revealedCard, revealCard] = useState(null);
+    const [lanes, updateLanes] = useState({
+        victory: [],
+        flow: [],
+        effect: []
+    });
 
-        this.dealCards = this.dealCards.bind(this);
-        this.addCard = this.addCard.bind(this);
-        this.removeCard = this.removeCard.bind(this);
-        this.revealCard = this.revealCard.bind(this);
-    }
-
-    componentDidMount()
-    {
-        this.dealCards();
-    }
-
-    dealCards()
+    function dealCards()
     {
         const { victory_cards, flow_cards, effect_cards } = JSON.parse(JSON.stringify(cards));
 
-        victory_cards.map(function(a){return a.type = 'victory'});
-        flow_cards.map(function(a){return a.type = 'flow'});
-        effect_cards.map(function(a){return a.type = 'effect'});
+        let victory = victory_cards.map((a, i) => {
+            return {id: i, type: 'victory', ...a,}
+        });
 
-        let victory_card = _getRandomCard(victory_cards);
-        let flow_card = _getRandomCard(flow_cards);
-        let effect_card = _getRandomCard(effect_cards);
+        let flow = flow_cards.map((a, i) => {
+            return {id: i, type: 'flow', ...a,}
+        });
 
-        let deck = _shuffle(victory_cards.concat(flow_cards).concat(effect_cards));
+        let effect = effect_cards.map((a, i) => {
+            return {id: i, type: 'effect', ...a,}
+        });
 
-        this.setState({
-            deck: deck,
+        let victory_card = getRandomCard(victory);
+        let flow_card = getRandomCard(flow);
+        let effect_card = getRandomCard(effect);
+
+        let deck = shuffle(victory.concat(flow).concat(effect));
+
+        updateDeck(deck);
+        updateLanes({
             victory: [victory_card],
             flow: [flow_card],
             effect: [effect_card],
-            revealedCard: null
         })
     }
 
-    addCard()
+    useEffect(dealCards, [])
+
+    function addCard()
     {
-        let deck = this.state.deck;
-        let newCard = _getRandomCard(deck);
+        let newCard = getRandomCard(deck);
 
-        let state = this.state;
-
-        if(newCard.type in state)
+        if(newCard.type in lanes)
         {
-            state[newCard.type].push(newCard);
+            let lane = lanes[newCard.type];
+
+            lane.push(newCard);
+            limitLane(lane);
+
+            updateLanes({
+                victory: lanes.victory,
+                flow: lanes.flow,
+                effect: lanes.effect,
+            });
         }
-
-        _limitLane(state.victory, deck);
-        _limitLane(state.flow, deck);
-        _limitLane(state.effect, deck);
-
-        state.deck = deck;
-
-        this.setState(state);
     }
 
-    removeCard(card) {
-        let state = this.state;
-
-        if(card.type in state)
+    function removeCard(card) {
+        if(card.type in lanes)
         {
-            let cards = state[card.type];
+            let cards = lanes[card.type];
 
             for(let i in cards)
             {
                 if(cards[i].name === card.name)
                 {
                     let c = cards.splice(i, 1)[0];
-                    state.deck.push(c);
+                    deck.push(c);
 
-                    let newState = {
-                        deck: state.deck
-                    }
-
-                    newState[card.type] = cards;
-
-                    this.setState(newState);
+                    updateLanes({
+                        victory: lanes.victory,
+                        flow: lanes.flow,
+                        effect: lanes.effect,
+                    });
                     return;
                 }
             }
         }
     }
 
-    revealCard(card)
+    function updateCard(type, id, name, desc)
     {
-        this.setState({revealedCard: card});
+        const allCards = {
+            victory: cards.victory_cards,
+            flow: cards.flow_cards,
+            effect: cards.effect_cards,
+        }
+
+        if(type in allCards)
+        {
+            allCards[type][id] = {
+                name: name,
+                desc: desc
+            }
+
+            if(revealedCard)
+            {
+                revealedCard.name = name;
+                revealedCard.desc = desc;
+            }
+        }
     }
 
-    render() {
-        return (
-            <div className="App">
-                <div className="col">
-                    <div className="card-lane">
-                        <div className="col">
-                            <Link to="/cards/edit">
-                                <button className="btn">
-                                    Edit
-                                </button>
-                            </Link>
-                        </div>
-                    </div>
+    function limitLane(stack)
+    {
+        while(stack.length > settings.max_cards)
+        {
+            stack.splice(0, 1);
+        }
+    }
 
-                    <div className="card-lane">
-                        <div className="col">
-                            <Card action={this.addCard} flipped={true} card={{
-                                name: 'Draw a rule (' + this.state.deck.length + ')'
-                            }}/>
-                        </div>
-                    </div>
+    function getRandomCard(stack)
+    {
+        var rand = Math.floor(Math.random() * stack.length);
+        return stack.splice(rand, 1)[0];
+    }
 
-                    <div className="card-lane">
-                        <div className="col">
-                            <button className="btn" onClick={() => this.dealCards()}>
-                                Reset
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+    
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+    
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+    
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+        }
+    
+        return array;
+    }
+
+    return (
+        <div className="App">
+            <div className="col">
+                <div className="card-lane">
+                    <div className="col">
+                        <Link to="/cards/edit">
+                            <button className="btn">
+                                Edit Cards
                             </button>
-                        </div>
+                        </Link>
                     </div>
                 </div>
 
-                <div className="col col-9">
-                    <div className="card-lane">
-                        {this.state.victory.map((card, index) => (
-                            <div className="col col-4">
-                                <Card key={index} card={card} removeCard={this.removeCard} action={this.revealCard}/>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="card-lane">
-                        {this.state.flow.map((card, index) => (
-                            <div className="col col-4">
-                                <Card key={index} card={card} rank={card.rank} removeCard={this.removeCard} action={this.revealCard}/>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="card-lane">
-                        {this.state.effect.map((card, index) => (
-                            <div className="col col-4">
-                                <Card key={index} card={card} removeCard={this.removeCard} action={this.revealCard}/>
-                            </div>
-                        ))}
+                <div className="card-lane">
+                    <div className="col">
+                        <Card action={addCard} flipped={true} card={{
+                            name: 'Draw a rule (' + deck.length + ')'
+                        }}/>
                     </div>
                 </div>
 
-                {this.state.revealedCard ? <RevealedCard card={this.state.revealedCard} onClose={this.revealCard} removeCard={this.removeCard}/> : ''}
+                <div className="card-lane">
+                    <div className="col">
+                        <button className="btn" onClick={() => dealCards()}>
+                            Reset
+                        </button>
+                    </div>
+                </div>
             </div>
-        );
-    }
-}
 
-function _getRandomCard(stack)
-{
-    var rand = Math.floor(Math.random() * stack.length);
-    return stack.splice(rand, 1)[0];
-}
+            <div className="col col-9">
+                <div className="card-lane">
+                    {lanes.victory.map((card, index) => (
+                        <div className="col col-4" key={index}>
+                            <Card card={card} removeCard={removeCard} action={() => revealCard(card)}/>
+                        </div>
+                    ))}
+                </div>
+                <div className="card-lane">
+                    {lanes.flow.map((card, index) => (
+                        <div className="col col-4" key={index}>
+                            <Card card={card} rank={card.rank} removeCard={removeCard} action={() => revealCard(card)}/>
+                        </div>
+                    ))}
+                </div>
+                <div className="card-lane">
+                    {lanes.effect.map((card, index) => (
+                        <div className="col col-4" key={index}>
+                            <Card card={card} removeCard={removeCard} action={() => revealCard(card)}/>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
-function _limitLane(stack, deck)
-{
-    while(stack.length > settings.max_cards)
-    {
-        deck.push(stack.splice(0, 1)[0]);
-    }
-}
-
-function _shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-  
-    return array;
+            {revealedCard ? <RevealedCard card={revealedCard} onClose={() => revealCard(null)} removeCard={removeCard} cardChanged={updateCard}/> : ''}
+        </div>
+    );
 }
 
 export default App;

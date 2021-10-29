@@ -14,7 +14,7 @@ export default function Edit() {
                     </Link>
                 </div>
 
-                <textarea style={{background: 'white', height: '100%'}} value={JSON.stringify(cards, null, 4)}></textarea>
+                <textarea style={{background: 'white', height: '100%'}} defaultValue={JSON.stringify(cards, null, 4)}></textarea>
             </div>
         </div>
     )

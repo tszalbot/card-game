@@ -1,20 +1,57 @@
-// { useState, useEffect }
-import React from 'react';
+import React, {useState} from 'react';
 import formatRules from '../config/format-rules.json';
 
 function RevealedCard(props)
 {
-    const { name, desc, type } = props.card;
+    const [editMode, switchEditMode] = useState(false);
+    const [name, setName] = useState(props.card.name);
+    const [desc, setDesc] = useState(props.card.desc);
+    const { type, id } = props.card;
 
-    return (
-        <div className="reveal" onClick={() => props.onClose()}>
-            <div className={'reveal-inner ' + type}>
-                <div className="reveal-name">{name}</div>
-                <div className="reveal-desc">{_formatDesc(desc)}</div>
-                <div className="reveal-remove" onClick={() => props.removeCard(props.card)}>Remove</div>
+    function stopPropagation(e) {
+        e.stopPropagation();
+    }
+
+    function saveCard() {
+        switchEditMode(false);
+        props.cardChanged(type, id, name, desc);
+    }
+
+    if(!editMode)
+    {
+        return (
+            <div className="reveal" onClick={props.onClose}>
+                <div className={'reveal-inner ' + type} onClick={stopPropagation}>
+                    <div className="reveal-name">{name}</div>
+                    <div className="reveal-desc">{_formatDesc(desc)}</div>
+                    <div className="reveal-footer">
+                        <div className="reveal-btn red" onClick={() => {props.onClose(); props.removeCard(props.card)}}>Remove</div>
+                        <div className="reveal-btn blue" onClick={() => switchEditMode(true)}>Edit</div>
+                    </div>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
+    else
+    {
+        return (
+            <div className="reveal" onClick={props.onClose}>
+                <div className={'reveal-inner ' + type} onClick={stopPropagation}>
+                    <div className="reveal-name">
+                        <input type="text" defaultValue={name} onChange={(e) => setName(e.target.value)}/>
+                    </div>
+
+                    <div className="reveal-desc">
+                        <textarea defaultValue={desc} onChange={(e) => setDesc(e.target.value)}></textarea>
+                    </div>
+
+                    <div className="reveal-footer">
+                        <div className="reveal-btn blue" onClick={saveCard}>Save</div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 }
 
 function _formatDesc(desc)
