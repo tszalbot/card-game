@@ -45,41 +45,42 @@
         {
             "name": "Rock Paper Scissors",
             "desc": "Turn start: Choose an opponent to play one round of Rock Paper Scissors. If you win steal a card from that opponent",
-            "rank": 1
+            "rank": 2
         },
         {
             "name": "Poker",
             "desc": "Turn start: You may play 2 cards face down in front of you.\nRound end: Reveal 5 cards from the deck and the cards played by players to compare them with basic poker rules. Winner takes the 5 revealed cards, everyone else discards played cards.",
-            "rank": 2
+            "rank": 3
         },
         {
             "name": "Fishing",
             "desc": "Turn start: Play a card face down in front of you.\nRound end: Reveal top 9 cards from the deck. Each player draws cards equal to the amount of matching ranks.",
-            "rank": 1
+            "rank": 2
         },
         {
             "name": "Mexican standoff",
             "desc": "Turn start: Choose an opponent and play one of your cards. If the opponent plays a card with the same sign and a higher rank they draw 1, otherwise you draw 2. Discard your played cards.",
-            "rank": 1
+            "rank": 2
         },
         {
             "name": "High stake",
-            "desc": "Rule draw: Reveal the top card of the deck to create a new pile. Turn start: Play a card with higher rank or the same sign as the top card of the pile or pass.\nRound end: Players that didn't pass this round draw a card. If everyone passed, the player who played the last card on that pile draws a card of his choice from the pile then discards the pile and creates a new one."
+            "desc": "Rule draw: Reveal the top card of the deck to create a new pile.\nTurn start: Play a card with higher rank or the same sign as the top card of the pile or pass.\nRound end: Players that didn't pass this round draw a card. If everyone passed, the player who played the last card on that pile draws a card of his choice from the pile then discards the pile and creates a new one.",
+            "rank": 1
         },
         {
             "name": "Bang!",
             "desc": "Turn start: Name an opponent and a card sign (spades, clubs, hearts, diamonds). Beginning with the opponent, you each take turns to play a card belonging to that card sign until one of you runs out of cards to play or chooses to pass, resulting in losing the exchange. The winner then gains cards equal to the amount of cards played in this exchange plus 1. Discard played cards.",
-            "rank": 1
+            "rank": 2
         },
         {
             "name": "Not like the other cards",
             "desc": "Turn start: Play a card face down in front of you.\nRound end: Reveal played cards. Every player that chose a card with a sign that is not repeated draws a card. Additionally, player with the highest card draws a card if no other player has the same rank.",
-            "rank": 1
+            "rank": 2
         },
         {
             "name": "Don't Stand Out",
             "desc": "Turn start: Play a card face down in front of you.\nRound end: Reveal played cards. If your card is the highest or the lowest from among other players' cards, discard it. Otherwise draw 1.",
-            "rank": 1
+            "rank": 2
         },
         {
             "name": "Auction",
@@ -89,7 +90,7 @@
         {
             "name": "UNO",
             "desc": "Rule draw: Put the top card from the deck face up to create a pile.\nTurn start: You may play a card onto the pile if the sign or rank matches with the top card. If you do, draw 1 card if the sign matches, or 2 if the rank matches.\nRule discard: Discard the pile.",
-            "rank": 1
+            "rank": 2
         },
         {
             "name": "Trade",
